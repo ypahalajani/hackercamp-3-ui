@@ -1,0 +1,8 @@
+{
+  "arrowParens": "avoid",
+  "breakProperty": true,
+  "jsxBracketSameLine": true,
+  "jsxSingleQuote": true,
+  "endOfLine": "lf",
+  "proseWrap": "always"
+}
