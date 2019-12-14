@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import datashopTheme from '@datashop/theme';
 
 import history from './history';
 import App from './App';
@@ -12,10 +14,12 @@ import ListingComponent from './components/Listing';
  */
 const ConfigureRoute = props => (
 	<Router history={history}>
-		<App>
-			<Route exact path='/' component={ListingComponent} />
-			<Route path='/details/:issueId' component={DetailsComponent} />
-		</App>
+		<ThemeProvider theme={datashopTheme}>
+			<App>
+				<Route exact path='/' component={ListingComponent} />
+				<Route path='/details/:issueId' component={DetailsComponent} />
+			</App>
+		</ThemeProvider>
 	</Router>
 );
 
