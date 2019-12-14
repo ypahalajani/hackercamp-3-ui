@@ -5,11 +5,12 @@
   "homepage": ".",
   "description": "an app",
   "dependencies": {
-
+    "history": "^4.10.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
-
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "1.0.17",
+    "styled-components": "^4.4.1"
   },
   "main": "src/electron-starter.js",
   "scripts": {
@@ -23,14 +24,14 @@
     "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000/ && npm run electron-dev\""
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "electron": "^1.7.10",
     "electron-installer-debian": "^0.7.1",
     "electron-installer-dmg": "^0.2.1",
-    "electron-wix-msi": "^1.2.3",
     "electron-packager": "^10.1.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-winstaller": "^2.6.3",
-    "wait-on": "^2.0.2",
-    "concurrently": "^3.5.1"
+    "electron-wix-msi": "^1.2.3",
+    "wait-on": "^2.0.2"
   }
 }

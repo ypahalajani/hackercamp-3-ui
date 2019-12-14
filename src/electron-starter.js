@@ -21,7 +21,17 @@ if (handleSquirrelEvent(app)) {
 
 function createWindow() {
 	// Create the browser window.
-	mainWindow = new BrowserWindow({ width: 1000, height: 1000 });
+	const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize;
+	mainWindow = new BrowserWindow({
+		width: Math.ceil(width * 0.3),
+		height,
+		x: width - Math.ceil(width * 0.3),
+		y: 0,
+		resizable: false,
+		frame: false,
+		alwaysOnTop: process.platform !== 'darwin',
+		backgroundColor: '#fff'
+	});
 
 	// and load the index.html of the app.
 	const startUrl =
