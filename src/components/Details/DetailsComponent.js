@@ -13,16 +13,17 @@ class DetailsComponent extends Component {
 		redirectToHome: false
 	};
 
-	getData() {
-		const { match: { params: { issueId } } } = this.props;
+	getData(issueId) {
 		// Make API call to fetch Issue details
+		this.setState({ isLoading: true, data: null });
 		axios.get(`http://10.10.14.127:7070/innote/jira/issues/${issueId}`).then(({ data }) => {
 			this.setState({ data, isLoading: false });
 		});
 	}
 
 	componentDidMount() {
-		this.getData();
+		const { match: { params: { issueId } } } = this.props;
+		this.getData(issueId);
 	}
 
 	changeTab = selectedTab => {
@@ -33,9 +34,10 @@ class DetailsComponent extends Component {
 		this.setState({ redirectToHome: true });
 	};
 
-	componentDidUpdate(prevProps, prevState) {
-		if (prevState.data && prevState.data.id !== this.state.data.id) {
-			this.getData();
+	componentDidUpdate(prevProps) {
+		const { match: { params: { issueId } } } = this.props;
+		if (prevProps.match.params.issueId !== issueId) {
+			this.getData(issueId);
 		}
 	}
 
