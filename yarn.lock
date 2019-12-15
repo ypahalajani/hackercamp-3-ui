@@ -270,6 +270,11 @@
   dependencies:
     utility-types "^2.0.0"
 
+"@datashop/heading@^1.0.4":
+  version "1.0.4"
+  resolved "http://52.35.230.55/@datashop%2fheading/-/heading-1.0.4.tgz#aac79896d6ada3c0f4e0d4bac07e11ad5d8cb8fa"
+  integrity sha1-qseYltato8D04NS6wH4RrV2MuPo=
+
 "@datashop/icon@^1.0.5":
   version "1.0.5"
   resolved "http://52.35.230.55/@datashop%2ficon/-/icon-1.0.5.tgz#1d271ec9b20d85902d5434a6c768a341d06f1176"

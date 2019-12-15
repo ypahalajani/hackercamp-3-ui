@@ -40,10 +40,11 @@ class EditComment extends React.PureComponent {
     this.setState({ value });
   };
 
-  render = props => {
+  render = () => {
+    const { handleAddComment, ...rest } = this.props;
     const { editMode, value = "" } = this.state;
     return editMode ? (
-      <FlexContainer column style={{ width: "80%" }}>
+      <FlexContainer column style={{ width: "80%" }} {...rest}>
         <Textarea
           placeholder='Name'
           value={value}
@@ -54,7 +55,7 @@ class EditComment extends React.PureComponent {
             appearance='primary'
             onClick={() => {
               this.closeEditMode();
-              this.props.handleAddComment(value);
+              handleAddComment(value);
             }}>
             Add Comment
           </Button>

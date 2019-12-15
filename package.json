@@ -14,6 +14,7 @@
     "@atlaskit/select": "^11.0.2",
     "@atlaskit/theme": "^9.3.0",
     "@datashop/card": "^1.0.1",
+    "@datashop/heading": "^1.0.4",
     "@datashop/input": "^1.1.0",
     "@datashop/placeholder": "^1.1.2",
     "@datashop/tabs": "^1.2.1",

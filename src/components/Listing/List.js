@@ -11,6 +11,8 @@ import Loader from "components/Listing/Loader";
 import axios from "axios";
 import { isObjectEmpty } from "components/Listing/ListItem";
 import Text from "@datashop/text";
+import { formatDistanceToNow, differenceInDays } from "date-fns";
+import Heading from "@datashop/heading";
 
 import ErrorIcon from "@atlaskit/icon/glyph/error";
 
@@ -30,13 +32,23 @@ const ListContainer = styled(ElementBar)`
   margin: 8px;
 `;
 
-const ErrorPlaceholder = props => (
+export const EmptyPlaceholder = props => (
   <FlexContainer column alignItems='center' flexGrow={1} {...props}>
-    <ErrorIcon size='xlarge' />
-    <Text>{`We did not want you to see this 😢 `}</Text>
-    <Text>{`Our best minds are working on fixing it.`}</Text>
-    <Text>{`We will be back shortly.`}</Text>
+    {props.icon}
+    {props.children(props)}
   </FlexContainer>
+);
+
+const ErrorPlaceholder = () => (
+  <EmptyPlaceholder icon={<ErrorIcon size='xlarge' />}>
+    {() => (
+      <React.Fragment>
+        <Text key={1}>{`We did not want you to see this 😢 `}</Text>
+        <Text key={2}>{`Our best minds are working on fixing it.`}</Text>
+        <Text key={3}>{`We will be back shortly.`}</Text>
+      </React.Fragment>
+    )}
+  </EmptyPlaceholder>
 );
 
 class List extends PureComponent {
@@ -48,6 +60,7 @@ class List extends PureComponent {
       loading: false
     };
   }
+
   componentDidMount() {
     this.setState({ loading: true, error: {} });
     axios
@@ -83,17 +96,47 @@ class List extends PureComponent {
       return <span>No recent activity</span>;
     }
     return (
-      <ListContainer column direction='bottom'>
-        {list.map(({ key, ...restProps }) => (
-          <ItemWrapper
-            key={key}
-            onClick={() => this.handleCardItemClick(restProps.id)}
-            disabled={!restProps.id}>
-            <StyledCard shadow='light'>
-              <ListItem issueName={key} {...restProps} />
-            </StyledCard>
-          </ItemWrapper>
-        ))}
+      <ListContainer column direction='bottom' pixels={12}>
+        {list.map((listItem, outerIndex) => {
+          const { data, updatedOn } = listItem;
+          const diff = differenceInDays(new Date(), new Date(updatedOn));
+          const formattedDate =
+            diff >= 1
+              ? formatDistanceToNow(new Date(updatedOn), {
+                  addSuffix: true
+                })
+              : "Today";
+          return (
+            <Element column key={outerIndex}>
+              <Heading
+                as='h2'
+                style={{
+                  marginBottom: 12,
+                  textTransform: "capitalize",
+                  fontSize: "24px",
+                  lineHeight: "30px",
+                  fontWeight: 600
+                }}>
+                {formattedDate}
+              </Heading>
+              <ElementBar column direction='bottom'>
+                {data.map(dataItem => {
+                  const { key, ...restProps } = dataItem;
+                  return (
+                    <ItemWrapper
+                      key={key}
+                      onClick={() => this.handleCardItemClick(restProps.id)}
+                      disabled={!restProps.id}>
+                      <StyledCard shadow='light'>
+                        <ListItem issueName={key} {...restProps} />
+                      </StyledCard>
+                    </ItemWrapper>
+                  );
+                })}
+              </ElementBar>
+            </Element>
+          );
+        })}
       </ListContainer>
     );
   }
