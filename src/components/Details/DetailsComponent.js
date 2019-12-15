@@ -7,7 +7,7 @@ import DetailsBody from "./DetailsBody";
 
 class DetailsComponent extends Component {
   state = {
-    selectedTab: "Comments",
+    selectedTab: "Insights",
     isLoading: true,
     data: null,
     redirectToHome: false
