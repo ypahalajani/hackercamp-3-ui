@@ -16,6 +16,7 @@ import ErrorIcon from "@atlaskit/icon/glyph/error";
 
 const StyledCard = styled(Card)`
   width: 100%;
+  background-color: white;
 `;
 
 const ItemWrapper = styled(Element)`
@@ -54,8 +55,8 @@ class List extends PureComponent {
       .then(({ data: { data } }) => {
         this.setState({ list: data, loading: false });
       })
-      .catch(({ reponse: { data } }) => {
-        this.setState({ error: data, loading: false });
+      .catch(({ response = {} }) => {
+        this.setState({ error: response.data || {}, loading: false });
       });
   }
 
@@ -64,6 +65,7 @@ class List extends PureComponent {
   };
 
   render() {
+    // return <Loader />;
     const { loading, list, error } = this.state;
     if (loading) {
       return <Loader />;
@@ -87,7 +89,7 @@ class List extends PureComponent {
             key={key}
             onClick={() => this.handleCardItemClick(restProps.id)}
             disabled={!restProps.id}>
-            <StyledCard shadow='dark'>
+            <StyledCard shadow='light'>
               <ListItem issueName={key} {...restProps} />
             </StyledCard>
           </ItemWrapper>

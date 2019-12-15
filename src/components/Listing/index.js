@@ -3,7 +3,10 @@ import styled from "styled-components";
 import List from "components/Listing/List";
 
 const Wrapper = styled.div`
-  margin: 8px;
+  padding: 8px;
+  background-color: rgb(235, 236, 240);
+  height: 100vh;
+  overflow: auto;
 `;
 
 const Listing = props => (
