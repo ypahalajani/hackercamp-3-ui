@@ -29,18 +29,23 @@ const Tab = styled.div`
 
 const IssueNameWrapper = styled.div`
 	display: flex;
+	flex-direction: column;
 	margin-left: 12px;
 `;
 
 const IssueIcon = styled.img`
-	width: 20px;
-	margin-top: -3px;
-	margin-left: 8px;
+	width: 18px;
+	height: 18px;
 `;
 
 const TabWrapper = styled.div`
 	display: flex;
 	margin-left: 16px;
+`;
+
+const IssueIconWrapper = styled.div`
+	display: flex;
+	align-items: center;
 `;
 
 const TabList = [ 'Insights', 'Comments' ];
@@ -60,12 +65,11 @@ const DetailsHeader = ({ selectedTab, changeTab, data, isLoading, goBack }) => {
 							<ArrowLeftIcon size='medium' label='Go back' />
 						</BackIcon>
 						<IssueNameWrapper>
-							<IssueName>
-								{data.project.name}
-								{` / `}
-							</IssueName>
-							<IssueIcon src={data.issue.iconUrl} />
-							<IssueName>{data.key}</IssueName>
+							<IssueName>{data.project.name}</IssueName>
+							<IssueIconWrapper>
+								<IssueIcon src={data.issue.iconUrl} />
+								<IssueName style={{ fontSize: 16 }}>{data.key}</IssueName>
+							</IssueIconWrapper>
 						</IssueNameWrapper>
 					</IssueHeader>
 					<TabWrapper>

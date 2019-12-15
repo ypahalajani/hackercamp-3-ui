@@ -36,6 +36,8 @@ const DescriptionWrapper = styled.div`
 
 const Avatar = styled.img`
 	width: 24px;
+	height: 24px;
+	margin-top: 1px;
 	margin-right: 8px;
 `;
 

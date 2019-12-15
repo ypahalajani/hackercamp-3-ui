@@ -1,6 +1,7 @@
 console.log('inside electron app');
 
 const electron = require('electron');
+const { ipcMain } = electron;
 
 // Module to control application life.
 const app = electron.app;
@@ -18,6 +19,20 @@ if (handleSquirrelEvent(app)) {
 	// squirrel event handled and app will exit in 1000ms, so don't do anything else
 	return;
 }
+
+ipcMain.on('bringToFocus', () => {
+	// Reply on async message from renderer process
+	if (mainWindow) {
+		// If window is minimized, mazimize it else restore it from tray
+		if (mainWindow.isMinimized()) {
+			mainWindow.maximize();
+		} else {
+			mainWindow.show();
+		}
+		// Focus the app after it has been brought to the foreground
+		mainWindow.focus();
+	}
+});
 
 function createWindow() {
 	// Create the browser window.
