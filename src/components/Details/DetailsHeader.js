@@ -7,6 +7,7 @@ const Wrapper = styled.div`box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.16);`;
 
 const IssueHeader = styled.div`
 	padding: 16px;
+	cursor: pointer;
 	display: flex;
 `;
 
@@ -64,7 +65,14 @@ const DetailsHeader = ({ selectedTab, changeTab, data, isLoading, goBack }) => {
 						<BackIcon onClick={goBack}>
 							<ArrowLeftIcon size='medium' label='Go back' />
 						</BackIcon>
-						<IssueNameWrapper>
+						<IssueNameWrapper
+							onClick={() => {
+								if (navigator.userAgent.toLowerCase().indexOf(' electron/') > -1) {
+									// Electron-specific code
+									const { shell } = window.require('electron');
+									shell.openExternal(`https://innovaccer.atlassian.net/browse/${data.key}`);
+								}
+							}}>
 							<IssueName>{data.project.name}</IssueName>
 							<IssueIconWrapper>
 								<IssueIcon src={data.issue.iconUrl} />
